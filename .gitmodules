@@ -1,0 +1,6 @@
+[submodule "FSP_front"]
+	path = FSP_front
+	url = https://github.com/HungryM1NT/FSP_front.git
+[submodule "FSP"]
+	path = FSP
+	url = https://github.com/HungryM1NT/FSP.git
