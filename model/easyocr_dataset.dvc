@@ -1,0 +1,6 @@
+outs:
+- md5: 04196ae1a46b0bae31cf6d992c2c2740.dir
+  size: 300986982
+  nfiles: 49881
+  hash: md5
+  path: easyocr_dataset

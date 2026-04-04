@@ -1,0 +1,6 @@
+outs:
+- md5: 17d08346604fa4fb4981de0cf5a05e27.dir
+  size: 491698022
+  nfiles: 2919
+  hash: md5
+  path: processed_sroie

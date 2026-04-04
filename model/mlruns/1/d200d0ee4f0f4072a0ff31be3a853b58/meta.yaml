@@ -1,0 +1,15 @@
+artifact_uri: file:./mlruns/1/d200d0ee4f0f4072a0ff31be3a853b58/artifacts
+end_time: 1774900012203
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: d200d0ee4f0f4072a0ff31be3a853b58
+run_uuid: d200d0ee4f0f4072a0ff31be3a853b58
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1774900011873
+status: 3
+tags: []
+user_id: ilyaa

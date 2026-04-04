@@ -1,0 +1,20 @@
+[project]
+name = "model"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "kagglehub>=1.0.0",
+    "opencv-python>=4.13.0.92",
+    "pandas>=3.0.1",
+    "scikit-learn>=1.8.0",
+    "ipywidgets>=8.1.7",
+    "jupyter>=1.1.1",
+    "easyocr>=1.7.2",
+    "editdistance>=0.8.1",
+    "protobuf<4.0.0",
+    "mlflow>=1.27.0",
+    "matplotlib>=3.10.8",
+    "transformers>=5.4.0",
+]
