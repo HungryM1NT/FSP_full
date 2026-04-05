@@ -1,0 +1,86 @@
+services:
+  # PostgreSQL
+  db:
+    image: postgres:15
+    restart: always
+    env_file:
+      - ./FSP/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./FSP/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # Брокер сообщений
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - "6379:6379"
+
+  # FastAPI
+  api:
+    build: ./FSP
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - ./FSP/.env
+    environment:
+      - POSTGRES_HOST=db
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./FSP/storage:/app/storage
+
+  # ML-воркер
+  worker:
+    build: ./FSP
+    command: celery -A worker.celery_app worker --loglevel=info --pool=solo
+    restart: always
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - ./FSP/.env
+    environment:
+      - POSTGRES_HOST=db
+      - REDIS_URL=redis://redis:6379/0
+      - OMP_NUM_THREADS=1
+      - MKL_NUM_THREADS=1
+    volumes:
+      - ./FSP/storage:/app/storage
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  # Веб-интерфейс
+  frontend:
+    build: ./FSP_front
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+
+  # Сервис мониторинга
+  prometheus:
+    image: prom/prometheus:latest
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
