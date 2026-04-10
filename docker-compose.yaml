@@ -53,13 +53,13 @@ services:
       - MKL_NUM_THREADS=1
     volumes:
       - ./FSP/storage:/app/storage
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
 
   # Веб-интерфейс
   frontend:
